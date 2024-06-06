@@ -77,5 +77,4 @@ def do_deploy(archive_path):
                  .format(archive_filename))
     if result.failed:
         return False
-
     return True
