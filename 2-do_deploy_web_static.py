@@ -10,9 +10,7 @@ env.hosts = ['3.208.21.184', '54.91.88.127']
 
 
 def do_pack():
-
     """Comm"""
-    
     local("mkdir -p versions")
     result = local("tar -cvzf versions/web_static_{}.tgz web_static"
                    .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")),
