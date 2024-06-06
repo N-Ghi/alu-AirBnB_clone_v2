@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Comment"""
-from fabric.api import local
+from fabric.api import *
 from datetime import datetime
 
 
