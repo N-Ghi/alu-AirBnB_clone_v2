@@ -9,7 +9,7 @@ def do_pack():
     local("mkdir -p versions")
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    archive_path = "versions/hbnb_static_{}.tgz".format(timestamp)
+    archive_path = "versions/web_static_{}.tgz".format(timestamp)
 
     result = local("tar -cvzf {} web_static".format(archive_path))
 
