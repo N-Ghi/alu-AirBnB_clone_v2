@@ -12,10 +12,10 @@ env.hosts = ['3.208.21.184', '54.91.88.127']
 def do_pack():
     """Function to compress files in an archive"""
     local("mkdir -p versions")
-    filename = "versions/web_static_{}.tgz".format(datetime.strftime(
+    filename = "versions/hbnb_static_{}.tgz".format(datetime.strftime(
         datetime.now(),
         "%Y%m%d%H%M%S"))
-    result = local("tar -cvzf {} web_static"
+    result = local("tar -cvzf {} hbnb_static"
                    .format(filename))
     if result.failed:
         return None
@@ -36,14 +36,14 @@ def do_deploy(archive_path):
     if result.failed:
         return False
     # Uncompress the archive to the folder
-    #     /data/web_static/releases/<archive filename without extension> on
+    #     /data/hbnb_static/releases/<archive filename without extension> on
     #     the web server
 
     result = run(
-        "mkdir -p /data/web_static/releases/{}/".format(archive_filename))
+        "mkdir -p /data/hbnb_static/releases/{}/".format(archive_filename))
     if result.failed:
         return False
-    result = run("tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}/"
+    result = run("tar -xzf /tmp/{}.tgz -C /data/hbnb_static/releases/{}/"
                  .format(archive_filename, archive_filename))
     if result.failed:
         return False
@@ -52,26 +52,26 @@ def do_deploy(archive_path):
     result = run("rm /tmp/{}.tgz".format(archive_filename))
     if result.failed:
         return False
-    result = run("mv /data/web_static/releases/{}"
-                 "/web_static/* /data/web_static/releases/{}/"
+    result = run("mv /data/hbnb_static/releases/{}"
+                 "/hbnb_static/* /data/hbnb_static/releases/{}/"
                  .format(archive_filename, archive_filename))
     if result.failed:
         return False
-    result = run("rm -rf /data/web_static/releases/{}/web_static"
+    result = run("rm -rf /data/hbnb_static/releases/{}/hbnb_static"
                  .format(archive_filename))
     if result.failed:
         return False
 
-    # Delete the symbolic link /data/web_static/current from the web server
-    result = run("rm -rf /data/web_static/current")
+    # Delete the symbolic link /data/hbnb_static/current from the web server
+    result = run("rm -rf /data/hbnb_static/current")
     if result.failed:
         return False
 
     #  Create a new the symbolic link
-    #  /data/web_static/current on the web server,
+    #  /data/hbnb_static/current on the web server,
     #     linked to the new version of your code
-    #     (/data/web_static/releases/<archive filename without extension>)
-    result = run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
+    #     (/data/hbnb_static/releases/<archive filename without extension>)
+    result = run("ln -s /data/hbnb_static/releases/{}/ /data/hbnb_static/current"
                  .format(archive_filename))
     if result.failed:
         return False
