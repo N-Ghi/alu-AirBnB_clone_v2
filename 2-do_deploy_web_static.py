@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """Comment"""
-from fabric.api import *
-import os
-import re
-from datetime import datetime
+from fabric.api import env, put, run
+from os.path import exists
 
 env.user = 'ubuntu'
 env.hosts = ['3.208.21.184', '54.91.88.127']
